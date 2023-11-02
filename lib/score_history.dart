@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/HomeScreen.dart';
+
 import 'package:flutter_application_2/profile.dart';
-import 'package:flutter_application_2/provider.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class score extends StatefulWidget {
@@ -19,16 +18,19 @@ class score extends StatefulWidget {
 class _scoreState extends State<score> {
   int score = 0;
   List<int> marks = [];
+  List<String> storedTimes = [];
+
   @override
   void initState() {
     super.initState();
     getUserScores();
+    getdatetime();
   }
 
   Future<void> getUserScores() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userScoresString = prefs.getString('user_scores');
-
+    // await prefs.clear();
     if (userScoresString != null) {
       setState(() {
         marks = userScoresString
@@ -39,10 +41,18 @@ class _scoreState extends State<score> {
     }
   }
 
+  Future<void> getdatetime() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedTimesList = prefs.getStringList('storedTimes');
+    // await prefs.clear();
+    setState(() {
+      storedTimes = storedTimesList ?? [];
+    });
+    print(storedTimes);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Provider.of<Savescore>(context).getUserScores();
-
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         appBar: AppBar(
@@ -85,20 +95,32 @@ class _scoreState extends State<score> {
             ),
           ],
         ),
-        body: 
-          ListView.builder(
-              itemCount: marks.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    " Score  ${marks[index]}",
-                    style: TextStyle(
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400),
-                  ),
-                );
-              }));
-        }
+        body: ListView.builder(
+            itemCount: marks.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(
+                  " Score  ${marks[index]}",
+                  style: TextStyle(
+                      color: const Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400),
+                ),
+                subtitle: Text(
+                  storedTimes[index],
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400),
+                ),
+                // trailing: Text(
+                //   '${storedTimes}',
+                //   style: TextStyle(
+                //       color: Colors.black,
+                //       fontSize: 15,
+                //       fontWeight: FontWeight.w400),
+                // )
+              );
+            }));
   }
-
+}

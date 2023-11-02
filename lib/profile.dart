@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/HomeScreen.dart';
 import 'package:flutter_application_2/loginscreen.dart';
+import 'package:flutter_application_2/provider.dart';
 
 import 'package:flutter_application_2/score_history.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class profile extends StatefulWidget {
@@ -168,7 +170,7 @@ class _profileState extends State<profile> {
                         context,
                         MaterialPageRoute(builder: (context) => loginpage()),
                         (Route<dynamic> Route) => false);
-                  login.remove();
+                  Provider.of<Savelogin>(context,listen: false).remove();
                   },
                   child: Container(
                     margin: EdgeInsets.fromLTRB(57, 25, 10, 20),
@@ -178,7 +180,7 @@ class _profileState extends State<profile> {
                         color: const Color.fromARGB(255, 0, 0, 0),
                         borderRadius: BorderRadius.circular(25)),
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(65, 10, 10, 20),
+                      padding: EdgeInsets.fromLTRB(100, 10, 10, 25),
                       child: Text(
                         "Logout",
                         style: TextStyle(

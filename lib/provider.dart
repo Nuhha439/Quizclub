@@ -1,7 +1,50 @@
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+List<String> usernameList = [];
+List<String> passwordList = [];
+
+class Savelogin extends ChangeNotifier {
+  Future<void> Saveuserlogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('name', usernameList);
+    prefs.setStringList('password', passwordList);
+    print(usernameList);
+    print(passwordList);
+  }
+
+  addLogin(String name, String password) {
+    usernameList.add(name);
+    passwordList.add(password);
+    Saveuserlogin();
+    notifyListeners();
+  }
+
+  remove() {
+    usernameList.removeAt(0);
+    passwordList.removeAt(0);
+    Saveuserlogin();
+    notifyListeners();
+  }
+  Future<void> getlogin() async {
+  final pref = await SharedPreferences.getInstance();
+  usernameList = pref.getStringList('name') ?? [];
+  passwordList = pref.getStringList('password') ?? [];
+  print(usernameList);
+  print(passwordList);
+}
+
+}
+
+
+
+
+
+
 // import 'package:flutter/material.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
-// class Savelogin extends ChangeNotifier {
+// class Savelogin extends ChangeNotifier { 
   
 
  

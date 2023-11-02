@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/HomeScreen.dart';
 import 'package:flutter_application_2/login.dart';
-import 'package:flutter_application_2/loginscreen.dart';
 import 'package:flutter_application_2/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,16 +9,15 @@ class splash extends StatefulWidget {
   const splash({super.key});
 
   @override
-  State<splash> createState() => _splashState();
+  State<splash> createState() => splashState();
 }
 
-class _splashState extends State<splash> {
-  
-
+class splashState extends State<splash> {
   @override
   void initState() {
     super.initState();
-    getlogin();
+   final savelogin = Provider.of<Savelogin>(context, listen: false);
+  savelogin.getlogin();
 
     Timer(Duration(seconds: 2), () {
       if (usernameList.isEmpty && passwordList.isEmpty) {
@@ -46,6 +43,7 @@ class _splashState extends State<splash> {
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
               image: AssetImage(

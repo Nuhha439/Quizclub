@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/General.dart';
 import 'package:flutter_application_2/Quiz.dart';
 import 'package:flutter_application_2/maths.dart';
-import 'package:flutter_application_2/provider.dart';
+
 import 'package:flutter_application_2/sport.dart';
-import 'package:provider/provider.dart';
+
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(

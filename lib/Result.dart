@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/HomeScreen.dart';
-import 'package:flutter_application_2/provider.dart';
 import 'package:flutter_application_2/score_history.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Result extends StatefulWidget {
@@ -14,7 +12,8 @@ class Result extends StatefulWidget {
   State<Result> createState() => ResultState();
 }
 
-List<int> marks = [];
+// List<int> marks = [];
+// List<String> storedTimes = [];
 
 class ResultState extends State<Result> {
   Future<void> saveQuizResult() async {
@@ -31,21 +30,23 @@ class ResultState extends State<Result> {
 
     prefs.setString('user_scores', marks.join(','));
   }
-  Future<void> storeTime() async {
-    final now = DateTime.now();
 
+  Future<void> SaveTimeandDate() async {
+    final now = DateTime.now();
     final prefs = await SharedPreferences.getInstance();
     final storedTimes = prefs.getStringList('storedTimes') ?? [];
     storedTimes.add(now.toString());
-    await prefs.setStringList('storedTimes', storedTimes);
+
+    prefs.setStringList('storedTimes', storedTimes);
+    print(storedTimes);
   }
 
   @override
   Widget build(BuildContext context) {
     // Provider.of<Savescore>(context).saveQuizResult();
     saveQuizResult();
-    storeTime();
-    marks.add(widget.score);
+
+    SaveTimeandDate();
     return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(children: [

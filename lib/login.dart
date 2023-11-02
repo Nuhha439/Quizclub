@@ -60,7 +60,7 @@ class _loginscreenState extends State<loginscreen> {
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5)
                   ),padding: EdgeInsets.only(left: 100,top: 10),
-                  child: Text('sign in',
+                  child: Text('sign up',
                   style: TextStyle(color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.w400),),

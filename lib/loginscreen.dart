@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/HomeScreen.dart';
 import 'package:flutter_application_2/provider.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class loginpage extends StatefulWidget {
   loginpage({super.key});
@@ -21,14 +21,11 @@ List<String> passwordList = [];
 
 class loginState extends State<loginpage> {
   @override
-  void initState() {
-    super.initState();
-    getlogin();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
-    Saveuserlogin();
+    Provider.of<Savelogin>(context).Saveuserlogin();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -132,7 +129,7 @@ class loginState extends State<loginpage> {
                       builder: (context) => HomeScreen(score: 0),
                     ),
                   );
-                  addLogin(namecontroller.text, passwordcontroller.text);
+                 Provider.of<Savelogin>(context,listen: false) .addLogin(namecontroller.text, passwordcontroller.text);
                 }
               },
               child: Center(
@@ -159,33 +156,11 @@ class loginState extends State<loginpage> {
       ),
     );
   }
-  remove() {
-  usernameList.removeAt(0);
-  passwordList.removeAt(0);
-  Saveuserlogin();
-}
+  
 
 }
 
-Future<void> Saveuserlogin() async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setStringList('name', usernameList);
-  prefs.setStringList('password', passwordList);
-  print(usernameList);
-  print(passwordList);
-}
 
-addLogin(String name, String password) {
-  usernameList.add(name);
-  passwordList.add(password);
-  Saveuserlogin();
-}
 
-Future<void> getlogin() async {
-  final pref = await SharedPreferences.getInstance();
-  usernameList = pref.getStringList('name') ?? [];
-  passwordList = pref.getStringList('password') ?? [];
-  print(usernameList);
-  print(passwordList);
-}
+
 
